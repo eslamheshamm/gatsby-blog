@@ -1,49 +1,30 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.com/docs/use-static-query/
- */
-
 import React from "react"
 import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
-
+import useSiteMetadata from "../hooks/useSiteMetadata"
 import Header from "./header"
-import "./layout.css"
 
 const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
+  const { title } = useSiteMetadata()
 
   return (
     <>
-      <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0 1.0875rem 1.45rem`,
-        }}
-      >
-        <main>{children}</main>
-        <footer
-          style={{
-            marginTop: `2rem`,
-          }}
-        >
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.com">Gatsby</a>
+      <Header siteTitle={title || `Title`} />
+      <body className="font-mono relative">
+        <main className="w-9/12 md:w-8/12 lg:w-7/12 mx-auto">{children}</main>
+        <footer className="w-11/12 mx-auto my-4 ">
+          <div className="fixed bottom-0 block ">
+            © {new Date().getFullYear()}, Built with
+            {` `}
+            <a href="https://www.gatsbyjs.com">Gatsby</a> | By {"   "}
+            <a
+              href="https://github.com/eslamheshamm"
+              className="underline font-bold"
+            >
+              Eslam
+            </a>
+          </div>
         </footer>
-      </div>
+      </body>
     </>
   )
 }
