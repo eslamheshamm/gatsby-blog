@@ -1,22 +1,29 @@
 import React from "react"
 import { Link } from "gatsby"
 
+import "../style/global.css"
+import usePosts from "../hooks/usePosts"
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
+import PostPreview from "../components/post-preview"
+import Insta from "../components/insta"
+const IndexPage = () => {
+  const posts = usePosts()
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link> <br />
-    <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-  </Layout>
-)
+  return (
+    <Layout>
+      <SEO title="Eslam - Blog" />
+      <h1 className="text-xl font-semibold">Hi people</h1>
+      <p className="font-medium py-4">Welcome to my gatsby blog!</p>
+      {posts.map(post => (
+        <PostPreview key={post.slug} post={post} />
+      ))}
+      <h2 className="text-2xl my-4 font-bold">Instagram posts</h2>
+      <Insta />
+      <br />
+      <Link to="/page-2/">Go to page 2</Link> <br />
+    </Layout>
+  )
+}
 
 export default IndexPage
